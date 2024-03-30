@@ -133,7 +133,7 @@ class Product extends Model
                         ->preload()
                         ->required()
                         ->live()
-                        ->afterStateUpdated(fn (Set $set) => $set('attributeValues',NULL)),
+                        ->afterStateUpdated(fn (Set $set) => $set('attributeValues', NULL)),
 
                     Select::make('attributeValues')
                         ->label('Attribute Value')
@@ -158,6 +158,16 @@ class Product extends Model
                 })
                 ->columnSpanFull()
                 ->key('dynamicFields')
+                ->visible(function (Get $get) {
+                    if($get('variantGenerator')){
+                        $first_repeater = collect($get('variantGenerator'))->values()->toArray()[0];
+                        if($first_repeater['attribute'] && $first_repeater['attributeValues']){
+                            return true;
+                        }
+
+                    }
+                    return false;
+                })
                 ->live(),
 
         ];
@@ -166,7 +176,7 @@ class Product extends Model
     public static function dynamicFields($get)
     {
         $variantGenerator = collect($get('variantGenerator'))->filter(function ($item) {
-            return ! empty($item['attribute']) && ! empty($item['attributeValues']);
+            return !empty($item['attribute']) && !empty($item['attributeValues']);
         });
 
         $selectedAttributes = $variantGenerator->values()->toArray();
@@ -190,12 +200,12 @@ class Product extends Model
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {
-                $fields[] = Select::make("attribute_$sectionIndex"."_$fieldIndex")
+                $fields[] = Select::make("attribute_$sectionIndex" . "_$fieldIndex")
                     ->label('Attribute')
                     ->default(Attribute::where('id', $attributeId)->pluck('name', 'id'))
                     ->required();
 
-                $fields[] = Select::make("value_$sectionIndex"."_$fieldIndex")
+                $fields[] = Select::make("value_$sectionIndex" . "_$fieldIndex")
                     ->label('Value')
                     ->default(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
                     ->required();
