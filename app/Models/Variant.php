@@ -97,25 +97,24 @@ class Variant extends Model
         $a = [];
         foreach($arrays as $arr){
 
-            foreach($arr as $key => $value){
-                $a =  array_merge($a,[
-                    FileUpload::make("image_$i")
-                    ->required(),
-                    Select::make("attr_$i")
-                    ->options(Attribute::where('id',$key)->pluck('name','id'))
-                        ->required(),
-                        Select::make("val_$i")
-                    ->options(AttributeValue::where('id',$value)->pluck('name','id'))
+            $a[] = FileUpload::make("image_$i")->required();
+            $a[] = TextInput::make("price_$i")->required()->numeric();
 
-                        ->required(),
-                        TextInput::make("price_$i")
-                    ->required()
-                    ->numeric(),
+            foreach ($arr as $key => $value) {
+                $a[] = Select::make("attr_$i")
+                    ->options(Attribute::where('id', $key)->pluck('name', 'id'))
+                    ->required();
 
-                ]);
+                $a[] = Select::make("val_$i")
+                    ->options(AttributeValue::where('id', $value)->pluck('name', 'id'))
+                    ->required();
+
                 $i++;
+
             }
-        }
+
+
+                }
         Log::info($a);
         return $a;
 
