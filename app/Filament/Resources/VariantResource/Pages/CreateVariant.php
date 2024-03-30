@@ -22,27 +22,27 @@ class CreateVariant extends CreateRecord
     }
 
     protected function handleRecordCreation(array $data): Model
-{
-            $variants = [];
+    {
+        $variants = [];
         $variantIndex = 1;
 
         // Loop through each set of attributes
-        while (isset($data['attribute_'.$variantIndex.'_1'])) {
+        while (isset($data['attribute_' . $variantIndex . '_1'])) {
             $variant = [];
             $variant['product_id'] = $data['product_id'];
 
             // Loop through attributes for this variant
             $attributeIndex = 1;
-            while (isset($data['attribute_'.$variantIndex.'_'.$attributeIndex])) {
-                $attributeKey = 'attribute_'.$variantIndex.'_'.$attributeIndex;
-                $valueKey = 'value_'.$variantIndex.'_'.$attributeIndex;
+            while (isset($data['attribute_' . $variantIndex . '_' . $attributeIndex])) {
+                $attributeKey = 'attribute_' . $variantIndex . '_' . $attributeIndex;
+                $valueKey = 'value_' . $variantIndex . '_' . $attributeIndex;
                 $variant['variants'][$data[$attributeKey]] = $data[$valueKey];
                 $attributeIndex++;
             }
 
             // Add image and price for this variant
-            $variant['image'] = $data['image_'.$variantIndex];
-            $variant['price'] = $data['price_'.$variantIndex];
+            $variant['image'] = $data['image_' . $variantIndex];
+            $variant['price'] = $data['price_' . $variantIndex];
 
             // Add this variant to the variants array
             $variants[] = $variant;
@@ -51,7 +51,7 @@ class CreateVariant extends CreateRecord
 
         // Log the variants array
         Log::info($variants);
-        foreach($variants as $variant){
+        foreach ($variants as $variant) {
             $variant_id = Variant::create(
                 [
                     'team_id' => Filament::getTenant()->id,
@@ -61,7 +61,7 @@ class CreateVariant extends CreateRecord
                 ]
             )->id;
 
-            foreach($variant['variants'] as $attribute_id => $value_id){
+            foreach ($variant['variants'] as $attribute_id => $value_id) {
                 DB::table('attribute_variant')->insert([
                     'variant_id' => $variant_id,
                     'attribute_id' => $attribute_id,
@@ -70,10 +70,8 @@ class CreateVariant extends CreateRecord
                     'updated_at' => now(),
                 ]);
             }
-
         }
 
-    return static::getModel()::find($variant_id);
-}
-
+        return static::getModel()::find($variant_id);
+    }
 }
