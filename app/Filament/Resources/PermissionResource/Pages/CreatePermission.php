@@ -16,5 +16,4 @@ class CreatePermission extends CreateRecord
             Permission::backAction(),
         ];
     }
-
 }

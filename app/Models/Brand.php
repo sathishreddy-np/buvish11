@@ -5,7 +5,6 @@ namespace App\Models;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\Section;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -26,7 +25,7 @@ class Brand extends Model
                     ->maxLength(255),
                 Textarea::make('description')
                     ->columnSpanFull(),
-            ])
+            ]),
         ];
     }
 
@@ -47,5 +46,4 @@ class Brand extends Model
     {
         return $this->hasMany(Product::class);
     }
-
 }

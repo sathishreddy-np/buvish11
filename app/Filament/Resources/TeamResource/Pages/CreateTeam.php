@@ -16,5 +16,4 @@ class CreateTeam extends CreateRecord
             Team::backAction(),
         ];
     }
-
 }

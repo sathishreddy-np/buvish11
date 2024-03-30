@@ -6,19 +6,16 @@ use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
-use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Database\Eloquent\Builder;
 
 class Variant extends Model
 {
@@ -31,17 +28,6 @@ class Variant extends Model
                 Select::make('product_id')
                     ->relationship('product', 'name')
                     ->required(),
-                FileUpload::make('image')
-                    ->required()
-                    ->columnSpanFull(),
-                Select::make('currency_id')
-                    ->label('Currency')
-                    ->options(Currency::all()->pluck('concatenated_name_currency_code_symbol', 'id'))
-                    ->searchable()
-                    ->preload(),
-                TextInput::make('price')
-                    ->required()
-                    ->numeric(),
 
             ]),
             Repeater::make('variantGenerator')
@@ -66,9 +52,8 @@ class Variant extends Model
                             fn (Select $component) => $component
                                 ->getContainer()
                                 ->getComponent('dynamicFields')
-                        )
+                        ),
                 ])->columnSpanFull()->columns(2),
-
 
             Grid::make(4)
                 ->schema(function (Get $get) {
@@ -76,14 +61,14 @@ class Variant extends Model
                 })
                 ->columnSpanFull()
                 ->key('dynamicFields')
-                ->live()
+                ->live(),
         ];
     }
 
     public static function dynamicFields($get)
     {
         $variantGenerator = collect($get('variantGenerator'))->filter(function ($item) {
-            return !empty($item['attribute']) && !empty($item['attributeValues']);
+            return ! empty($item['attribute']) && ! empty($item['attributeValues']);
         });
 
         $selectedAttributes = $variantGenerator->values()->toArray();
@@ -91,11 +76,11 @@ class Variant extends Model
         $allPossibleCombinations = Variant::generateCombinations($selectedAttributes);
 
         $sections = [];
-        $sectionIndex = 0; // Initialize $sectionIndex here
+        $sectionIndex = 1; // Initialize $sectionIndex here
 
         foreach ($allPossibleCombinations as $combination) {
             $fields = [];
-            $fieldIndex = 0;
+            $fieldIndex = 1;
 
             $fields[] = FileUpload::make("image_$sectionIndex")
                 ->label('Image')
@@ -106,13 +91,13 @@ class Variant extends Model
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {
-                $fields[] = Select::make("attr_$sectionIndex" . "_$fieldIndex")
+                $fields[] = Select::make("attr_$sectionIndex"."_$fieldIndex")
                     ->label('Attribute')
                     ->options(Attribute::where('id', $attributeId)->pluck('name', 'id'))
                     ->default($attributeId)
                     ->required();
 
-                $fields[] = Select::make("val_$sectionIndex" . "_$fieldIndex")
+                $fields[] = Select::make("val_$sectionIndex"."_$fieldIndex")
                     ->label('Value')
                     ->options(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
                     ->default($valueId)
@@ -151,7 +136,6 @@ class Variant extends Model
 
         return $combinations;
     }
-
 
     public static function backAction()
     {

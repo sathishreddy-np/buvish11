@@ -16,5 +16,4 @@ class CreateInvoice extends CreateRecord
             Invoice::backAction(),
         ];
     }
-
 }

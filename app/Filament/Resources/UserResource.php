@@ -47,7 +47,7 @@ class UserResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->formatStateUsing(function ($state, User $user) {
-                        return $user->country_code . '-' . $state;
+                        return $user->country_code.'-'.$state;
                     }),
                 Tables\Columns\TextColumn::make('roles.name')
                     ->searchable()

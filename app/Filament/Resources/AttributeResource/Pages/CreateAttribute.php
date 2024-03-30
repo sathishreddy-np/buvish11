@@ -16,5 +16,4 @@ class CreateAttribute extends CreateRecord
             Attribute::backAction(),
         ];
     }
-
 }

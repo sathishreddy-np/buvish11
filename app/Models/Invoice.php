@@ -47,7 +47,6 @@ class Invoice extends Model
             ->url(route('filament.admin.resources.invoices.index', Filament::getTenant()));
     }
 
-
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);

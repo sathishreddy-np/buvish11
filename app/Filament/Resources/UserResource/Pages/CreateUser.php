@@ -16,5 +16,4 @@ class CreateUser extends CreateRecord
             User::backAction(),
         ];
     }
-
 }

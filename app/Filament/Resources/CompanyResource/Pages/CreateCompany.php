@@ -16,5 +16,4 @@ class CreateCompany extends CreateRecord
             Company::backAction(),
         ];
     }
-
 }

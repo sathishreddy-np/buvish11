@@ -33,7 +33,6 @@ class Company extends Model
             ->url(route('filament.admin.resources.companies.index', Filament::getTenant()));
     }
 
-
     public function users(): HasMany
     {
         return $this->hasMany(User::class);

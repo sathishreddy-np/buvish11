@@ -5,8 +5,6 @@ namespace App\Filament\Resources\PromotionResource\Pages;
 use App\Filament\Resources\PromotionResource;
 use App\Models\Promotion;
 use Filament\Actions;
-use Filament\Actions\Action;
-use Filament\Facades\Filament;
 use Filament\Resources\Pages\EditRecord;
 
 class EditPromotion extends EditRecord

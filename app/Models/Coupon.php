@@ -86,7 +86,6 @@ class Coupon extends Model
             ->url(route('filament.admin.resources.coupons.index', Filament::getTenant()));
     }
 
-
     protected function type(): Attribute
     {
         return Attribute::make(

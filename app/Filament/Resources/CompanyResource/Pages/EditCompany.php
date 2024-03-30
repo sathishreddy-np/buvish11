@@ -4,7 +4,6 @@ namespace App\Filament\Resources\CompanyResource\Pages;
 
 use App\Filament\Resources\CompanyResource;
 use App\Models\Company;
-use App\Models\Variant;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 

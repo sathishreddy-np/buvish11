@@ -19,7 +19,7 @@ class AttributeValue extends Model
     {
         return [
             Select::make('attribute')
-                ->relationship('attribute','name')
+                ->relationship('attribute', 'name')
                 ->searchable()
                 ->preload()
                 ->required(),
@@ -49,7 +49,6 @@ class AttributeValue extends Model
 
     public function variants(): BelongsToMany
     {
-        return $this->belongsToMany(Variant::class,'attribute_variant')->withPivot('attribute_id')->withTimestamps();
+        return $this->belongsToMany(Variant::class, 'attribute_variant')->withPivot('attribute_id')->withTimestamps();
     }
-
 }

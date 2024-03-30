@@ -16,5 +16,4 @@ class CreateCustomer extends CreateRecord
             Customer::backAction(),
         ];
     }
-
 }

@@ -16,5 +16,4 @@ class CreatePayment extends CreateRecord
             Payment::backAction(),
         ];
     }
-
 }

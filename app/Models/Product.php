@@ -4,24 +4,18 @@ namespace App\Models;
 
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
-use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
-use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-
 
 class Product extends Model
 {
@@ -134,7 +128,6 @@ class Product extends Model
             ->color('warning')
             ->url(route('filament.admin.resources.products.index', Filament::getTenant()));
     }
-
 
     public function team(): BelongsTo
     {

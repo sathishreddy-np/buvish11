@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -23,7 +22,6 @@ class VariantFactory extends Factory
             'team_id' => Team::inRandomOrder()->first(),
             'product_id' => Product::inRandomOrder()->first(),
             'image' => fake()->imageUrl(),
-            'currency_id' => Currency::inRandomOrder()->first()->id,
             'price' => fake()->numberBetween(100, 1000),
         ];
     }

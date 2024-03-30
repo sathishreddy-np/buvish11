@@ -16,5 +16,4 @@ class CreateProduct extends CreateRecord
             Product::backAction(),
         ];
     }
-
 }

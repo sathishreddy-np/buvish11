@@ -4,7 +4,6 @@ namespace App\Filament\Resources\TagResource\Pages;
 
 use App\Filament\Resources\TagResource;
 use App\Models\Tag;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 
 class CreateTag extends CreateRecord
@@ -17,5 +16,4 @@ class CreateTag extends CreateRecord
             Tag::backAction(),
         ];
     }
-
 }

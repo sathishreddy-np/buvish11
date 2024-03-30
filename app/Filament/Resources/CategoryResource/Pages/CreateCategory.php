@@ -16,5 +16,4 @@ class CreateCategory extends CreateRecord
             Category::backAction(),
         ];
     }
-
 }

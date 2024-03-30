@@ -95,7 +95,6 @@ class Customer extends Model
             ->url(route('filament.admin.resources.customers.index', Filament::getTenant()));
     }
 
-
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);

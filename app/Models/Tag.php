@@ -21,8 +21,8 @@ class Tag extends Model
             Section::make()->schema([
                 TextInput::make('name')
                     ->required()
-                    ->minLength(255)
-            ])
+                    ->minLength(255),
+            ]),
         ];
     }
 

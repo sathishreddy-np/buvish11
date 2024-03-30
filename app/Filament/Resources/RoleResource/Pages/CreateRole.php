@@ -16,5 +16,4 @@ class CreateRole extends CreateRecord
             Role::backAction(),
         ];
     }
-
 }

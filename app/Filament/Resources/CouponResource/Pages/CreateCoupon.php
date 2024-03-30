@@ -16,5 +16,4 @@ class CreateCoupon extends CreateRecord
             Coupon::backAction(),
         ];
     }
-
 }

@@ -18,7 +18,7 @@ class AttributeValueFactory extends Factory
      */
     public function definition(): array
     {
-            $values = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'small', 'medium', 'large', 'extra-large', 'light', 'dark', 'heavy', 'plastic', 'metal', 'cotton', 'wool', 'leather', 'summer', 'winter', 'casual', 'formal', 'sporty', 'striped', 'solid', 'printed', 'round', 'square', 'oval', 'rectangle', 'abstract', 'modern', 'vintage', 'new', 'used', 'unisex', 'male', 'female', 'indoor', 'outdoor', 'electronic', 'furniture', 'accessory', 'tool', 'stationary', 'grocery'];
+        $values = ['red', 'blue', 'green', 'yellow', 'black', 'white', 'small', 'medium', 'large', 'extra-large', 'light', 'dark', 'heavy', 'plastic', 'metal', 'cotton', 'wool', 'leather', 'summer', 'winter', 'casual', 'formal', 'sporty', 'striped', 'solid', 'printed', 'round', 'square', 'oval', 'rectangle', 'abstract', 'modern', 'vintage', 'new', 'used', 'unisex', 'male', 'female', 'indoor', 'outdoor', 'electronic', 'furniture', 'accessory', 'tool', 'stationary', 'grocery'];
 
         return [
             'team_id' => Team::inRandomOrder()->first(),

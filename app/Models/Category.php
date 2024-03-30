@@ -34,7 +34,6 @@ class Category extends Model
             ->url(route('filament.admin.resources.categories.index', Filament::getTenant()));
     }
 
-
     public function team(): BelongsTo
     {
         return $this->belongsTo(Team::class);

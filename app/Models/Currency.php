@@ -17,7 +17,7 @@ class Currency extends Model
         return $this->name.' - '.$this->code.' - '.$this->symbol;
     }
 
-    public function variants():HasMany
+    public function variants(): HasMany
     {
         return $this->hasMany(Variant::class);
     }
@@ -29,5 +29,4 @@ class Currency extends Model
             ->color('warning')
             ->url(route('filament.admin.resources.currencies.index', Filament::getTenant()));
     }
-
 }

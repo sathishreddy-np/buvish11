@@ -96,7 +96,6 @@ class Team extends Model
             ->url(route('filament.admin.teams.tags.index', Filament::getTenant()));
     }
 
-
     public function timezone(): BelongsTo
     {
         return $this->belongsTo(Timezone::class);

@@ -60,7 +60,6 @@ class Role extends ModelsRole
             ->url(route('filament.admin.resources.roles.index', Filament::getTenant()));
     }
 
-
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);

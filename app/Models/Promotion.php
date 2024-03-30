@@ -23,7 +23,7 @@ class Promotion extends Model
                     ->required()
                     ->maxLength(255),
 
-            ])
+            ]),
         ];
     }
 

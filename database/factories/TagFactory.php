@@ -19,7 +19,7 @@ class TagFactory extends Factory
     {
         return [
             'team_id' => Team::factory(),
-            'name' => fake()->name()
+            'name' => fake()->name(),
         ];
     }
 }

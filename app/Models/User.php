@@ -99,7 +99,7 @@ class User extends Authenticatable implements FilamentUser, HasTenants
                     ->relationship('teams', 'name')
                     ->required()
                     ->columnSpanFull()->columns(3),
-                    CheckboxList::make('roles')
+                CheckboxList::make('roles')
                     ->label('Assign Roles')
                     ->relationship('roles', 'name')
                     ->required()

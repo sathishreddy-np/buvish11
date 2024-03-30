@@ -46,10 +46,9 @@ class Attribute extends Model
             ->url(route('filament.admin.resources.attributes.index', Filament::getTenant()));
     }
 
-
     public function variants(): BelongsToMany
     {
-        return $this->belongsToMany(Variant::class,'attribute_variant')->withPivot('attribute_value_id')->withTimestamps();
+        return $this->belongsToMany(Variant::class, 'attribute_variant')->withPivot('attribute_value_id')->withTimestamps();
     }
 
     public function team(): BelongsTo

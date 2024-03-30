@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
@@ -19,7 +18,6 @@ return new class extends Migration
             $table->foreignIdFor(Team::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
             $table->text('image');
-            $table->foreignIdFor(Currency::class);
             $table->integer('price');
             $table->timestamps();
         });
