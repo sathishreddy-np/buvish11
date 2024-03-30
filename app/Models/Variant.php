@@ -162,13 +162,13 @@ class Variant extends Model
         return $this->belongsTo(Currency::class);
     }
 
-    public function attributes(): BelongsToMany
-    {
-        return $this->belongsToMany(Attribute::class, 'attribute_variant')->withPivot('attribute_value_id')->withTimestamps();
-    }
+    // public function attributes(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(Attribute::class, 'attribute_variant')->withPivot('attribute_value_id')->withTimestamps();
+    // }
 
-    public function attributeValues(): BelongsToMany
-    {
-        return $this->belongsToMany(AttributeValue::class, 'attribute_variant')->withPivot('attribute_value_id')->withTimestamps();
-    }
+    // public function attributeValues(): BelongsToMany
+    // {
+    //     return $this->belongsToMany(AttributeValue::class, 'attribute_variant')->withPivot('attribute_value_id')->withTimestamps();
+    // }
 }
