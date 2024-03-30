@@ -71,11 +71,9 @@ class Product extends Model
                     ->maxLength(255),
                 TextInput::make('sku_code')
                     ->label('SKU Code')
-                    ->required()
                     ->maxLength(255),
                 TextInput::make('barcode')
                     ->label('Barcode')
-                    ->required()
                     ->maxLength(255),
             ])->columnSpan(3)->columns(3),
             Section::make('Taxes')
