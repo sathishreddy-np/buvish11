@@ -30,42 +30,19 @@ class EditProduct extends EditRecord
         return $data['source'];
     }
 
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        try {
-
-            $new_data = [
-                'team_id' => Filament::getTenant()->id,
-                'name' => $data['name'],
-                'brand_id' => $data['brand_id'],
-                'description' => $data['description'],
-                'meta_title' => $data['meta_title'],
-                'meta_description' => $data['meta_description'],
-                'hsn_code' => $data['hsn_code'],
-                'sku_code' => $data['sku_code'],
-                'barcode' => $data['barcode'],
-                'is_taxable' => $data['is_taxable'],
-                'is_vat_applied' => $data['is_vat_applied'],
-                'is_coupon_applicable' => $data['is_coupon_applicable'],
-                'is_digital' => $data['is_digital'],
-                'digital_product_file' => $data['digital_product_file'] ?? null,
-                'source' => $data
-            ];
-
-            $product_id = Product::create($new_data)->id;
-            $data['product_id'] = $product_id;
-
-            return $data;
-        } catch (\Throwable $th) {
-            Notification::make()
-                ->title('Something went wrong.')
-                ->danger()
-                ->send();
-        }
-    }
-
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
+
+        $product_id = $record->id;
+
+        $categories = DB::table('category_product')->where('product_id',$product_id)->pluck('category_id');
+            $promotions = DB::table('product_promotion')->where('product_id',$product_id)->pluck('promotion_id');
+            $tags = DB::table('product_tag')->where('product_id',$product_id)->pluck('tag_id');
+            $data['product_id'] = $product_id;
+            $data['categories'] = $categories;
+            $data['promotions'] = $promotions;
+            $data['tags'] = $tags;
+
         $new_data = [
             'team_id' => Filament::getTenant()->id,
             'name' => $data['name'],
@@ -86,7 +63,6 @@ class EditProduct extends EditRecord
 
         $record->update($new_data);
 
-        $product_id = $record->id;
 
         try {
             DB::transaction(function () use ($data, $record) {
