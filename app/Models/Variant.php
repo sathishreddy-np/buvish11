@@ -74,6 +74,7 @@ class Variant extends Model
                 ->schema(function (Get $get) {
                     return Variant::dynamicFields($get);
                 })
+                ->columnSpan(1)->columns(2)
                 ->key('dynamicFields')
                 ->live()
         ];
@@ -89,18 +90,19 @@ class Variant extends Model
 
 
         $arrays = [];
-        foreach($all_possible_combinations as $key => $value){
+        foreach ($all_possible_combinations as $key => $value) {
 
             array_push($arrays, $value);
         }
         $i = 0;
         $a = [];
-        foreach($arrays as $arr){
+        foreach ($arrays as $arr) {
 
             $a[] = FileUpload::make("image_$i")->required();
             $a[] = TextInput::make("price_$i")->required()->numeric();
 
             foreach ($arr as $key => $value) {
+                Log::info($value);
                 $a[] = Select::make("attr_$i")
                     ->options(Attribute::where('id', $key)->pluck('name', 'id'))
                     ->required();
@@ -110,16 +112,9 @@ class Variant extends Model
                     ->required();
 
                 $i++;
-
             }
-
-
-                }
-        Log::info($a);
+        }
         return $a;
-
-
-
     }
 
     public static function generateCombinations($attributes)
