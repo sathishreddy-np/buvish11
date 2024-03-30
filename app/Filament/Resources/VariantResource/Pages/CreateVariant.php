@@ -6,6 +6,7 @@ use App\Filament\Resources\VariantResource;
 use App\Models\Variant;
 use Filament\Facades\Filament;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -20,9 +21,9 @@ class CreateVariant extends CreateRecord
         ];
     }
 
-    protected function mutateFormDataBeforeCreate(array $data): array
-    {
-        $variants = [];
+    protected function handleRecordCreation(array $data): Model
+{
+            $variants = [];
         $variantIndex = 1;
 
         // Loop through each set of attributes
@@ -71,6 +72,8 @@ class CreateVariant extends CreateRecord
             }
 
         }
-        return $data;
-    }
+
+    return static::getModel()::find($variant_id);
+}
+
 }

@@ -41,10 +41,7 @@ class VariantResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->label('Price')
                     ->searchable()
-                    ->sortable()
-                    ->formatStateUsing(function ($state, Variant $variant) {
-                        return $variant->currency->code.' '.$state;
-                    }),
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
