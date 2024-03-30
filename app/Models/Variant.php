@@ -84,6 +84,7 @@ class Variant extends Model
             $fieldIndex = 1;
 
             $fields[] = FileUpload::make("image_$sectionIndex")
+                ->image()
                 ->label('Image')
                 ->required();
 

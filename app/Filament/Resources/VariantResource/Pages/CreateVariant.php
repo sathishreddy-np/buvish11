@@ -4,7 +4,9 @@ namespace App\Filament\Resources\VariantResource\Pages;
 
 use App\Filament\Resources\VariantResource;
 use App\Models\Variant;
+use Filament\Facades\Filament;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CreateVariant extends CreateRecord
@@ -51,16 +53,21 @@ class CreateVariant extends CreateRecord
         foreach($variants as $variant){
             $variant_id = Variant::create(
                 [
+                    'team_id' => Filament::getTenant()->id,
                     'product_id' => $variant['product_id'],
                     'image' => $variant['image'],
                     'price' => $variant['price']
                 ]
             )->id;
 
-            foreach($variant['variants'] as $attribute => $value){
-                $variant = Variant::find($variant_id);
-
-                $variant->attributes()->attach(['attribute_id' => $attribute, 'attribute_value_id' => $value]);
+            foreach($variant['variants'] as $attribute_id => $value_id){
+                DB::table('attribute_variant')->insert([
+                    'variant_id' => $variant_id,
+                    'attribute_id' => $attribute_id,
+                    'attribute_value_id' => $value_id,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
             }
 
         }
