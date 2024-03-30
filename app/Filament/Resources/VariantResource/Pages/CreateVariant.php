@@ -48,7 +48,22 @@ class CreateVariant extends CreateRecord
 
         // Log the variants array
         Log::info($variants);
+        foreach($variants as $variant){
+            $variant_id = Variant::create(
+                [
+                    'product_id' => $variant['product_id'],
+                    'image' => $variant['image'],
+                    'price' => $variant['price']
+                ]
+            )->id;
 
-        return $variants;
+            foreach($variant['variants'] as $attribute => $value){
+                $variant = Variant::find($variant_id);
+
+                $variant->attributes()->attach(['attribute_id' => $attribute, 'attribute_value_id' => $value]);
+            }
+
+        }
+        return $data;
     }
 }
