@@ -70,11 +70,12 @@ class Variant extends Model
                 ])->columnSpanFull()->columns(2),
 
 
-            Grid::make(3)
+            Grid::make(4)
                 ->schema(function (Get $get) {
                     return Variant::dynamicFields($get);
                 })
                 ->key('dynamicFields')
+                ->live()
         ];
     }
 
@@ -92,19 +93,27 @@ class Variant extends Model
 
             array_push($arrays, $value);
         }
-
+        $i = 0;
+        $a = [];
         foreach($arrays as $arr){
+
             foreach($arr as $key => $value){
-                $a =  [
-
-                    TextInput::make('attr')
-                    ->default($key)
+                $a =  array_merge($a,[
+                    FileUpload::make("image_$i")
+                    ->required(),
+                    Select::make("attr_$i")
+                    ->options(Attribute::where('id',$key)->pluck('name','id'))
                         ->required(),
-                    TextInput::make('val')
-                    ->default($value)
-                        ->required(),
+                        Select::make("val_$i")
+                    ->options(AttributeValue::where('id',$value)->pluck('name','id'))
 
-                ];
+                        ->required(),
+                        TextInput::make("price_$i")
+                    ->required()
+                    ->numeric(),
+
+                ]);
+                $i++;
             }
         }
         Log::info($a);
