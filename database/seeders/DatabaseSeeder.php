@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
                     )
                     ->has(Category::factory(5))
                     ->has(Brand::factory(5))
-                    ->has(Product::factory(5)->has(InvoiceItem::factory())->has(Variant::factory(5)))
+                    ->has(Product::factory(5)->has(InvoiceItem::factory()))
                     ->has(Attribute::factory(5)->has(AttributeValue::factory(5)))
                     ->has(Coupon::factory(5))
                     ->has(Tag::factory(5))
