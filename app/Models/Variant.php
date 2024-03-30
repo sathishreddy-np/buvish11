@@ -98,11 +98,11 @@ class Variant extends Model
             $fieldIndex = 0;
 
             $fields[] = FileUpload::make("image_$sectionIndex")
-                ->label('image')
+                ->label('Image')
                 ->required();
 
             $fields[] = TextInput::make("price_$sectionIndex")
-                ->label('price')
+                ->label('Price')
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {
