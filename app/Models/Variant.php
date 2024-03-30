@@ -11,7 +11,6 @@ use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Get;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -34,7 +33,7 @@ class Variant extends Model
                 ->schema([
                     Select::make('attribute')
                         ->label('Attribute')
-                        ->options(Attribute::pluck('name','id'))
+                        ->options(Attribute::pluck('name', 'id'))
                         ->searchable()
                         ->preload()
                         ->required()
@@ -42,8 +41,8 @@ class Variant extends Model
 
                     Select::make('attributeValues')
                         ->label('Attribute Value')
-                        ->options(function (Get $get){
-                            return AttributeValue::where('attribute_id', $get('attribute'))->pluck('name','id');
+                        ->options(function (Get $get) {
+                            return AttributeValue::where('attribute_id', $get('attribute'))->pluck('name', 'id');
                         })
                         ->searchable()
                         ->multiple()
