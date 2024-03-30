@@ -38,7 +38,7 @@ class CreateProduct extends CreateRecord
             'is_vat_applied' => $data['is_vat_applied'],
             'is_coupon_applicable' => $data['is_coupon_applicable'],
             'is_digital' => $data['is_digital'],
-            'digital_product_file' => $data['digital_product_file'],
+            'digital_product_file' => $data['digital_product_file'] ?? NULL,
         );
 
         $product_id = Product::create($new_data)->id;
@@ -96,6 +96,6 @@ class CreateProduct extends CreateRecord
             }
         }
 
-        return static::getModel()::find($variant_id);
+        return Product::find($variant['product_id']);
     }
 }
