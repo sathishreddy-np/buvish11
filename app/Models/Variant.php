@@ -95,12 +95,16 @@ class Variant extends Model
             array_push($arrays, $value);
         }
         $i = 0;
+        $j = 0;
         $a = [];
+        $b = [];
+
+        Log::info($arrays);
+
         foreach ($arrays as $arr) {
 
             $a[] = FileUpload::make("image_$i")->required();
             $a[] = TextInput::make("price_$i")->required()->numeric();
-
             foreach ($arr as $key => $value) {
                 $a[] = Select::make("attr_$i")
                     ->options(Attribute::where('id', $key)->pluck('name', 'id'))
@@ -114,8 +118,11 @@ class Variant extends Model
 
                 $i++;
             }
+            $b[] = Section::make("kk_$j")->schema($a);
+            $a = [];
+            $j++;
         }
-        return $a;
+        return $b;
     }
 
     public static function generateCombinations($attributes)
