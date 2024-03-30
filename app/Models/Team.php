@@ -136,6 +136,12 @@ class Team extends Model
         return $this->hasMany(Product::class);
     }
 
+    public function variants(): HasMany
+    {
+        return $this->hasMany(Variant::class);
+    }
+
+
     public function categories(): HasMany
     {
         return $this->hasMany(Category::class);

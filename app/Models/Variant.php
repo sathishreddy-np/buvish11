@@ -34,7 +34,7 @@ class Variant extends Model
                 ->schema([
                     Select::make('attribute')
                         ->label('Attribute')
-                        ->relationship('attributes', 'name')
+                        ->options(Attribute::pluck('name','id'))
                         ->searchable()
                         ->preload()
                         ->required()
@@ -42,7 +42,9 @@ class Variant extends Model
 
                     Select::make('attributeValues')
                         ->label('Attribute Value')
-                        ->relationship('attributeValues', 'name', fn (Builder $query, Get $get) => $query->where('attribute_values.attribute_id', $get('attribute')))
+                        ->options(function (Get $get){
+                            return AttributeValue::where('attribute_id', $get('attribute'))->pluck('name','id');
+                        })
                         ->searchable()
                         ->multiple()
                         ->preload()
@@ -76,7 +78,7 @@ class Variant extends Model
         $allPossibleCombinations = Variant::generateCombinations($selectedAttributes);
 
         $sections = [];
-        $sectionIndex = 1; // Initialize $sectionIndex here
+        $sectionIndex = 1;
 
         foreach ($allPossibleCombinations as $combination) {
             $fields = [];
@@ -91,13 +93,13 @@ class Variant extends Model
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {
-                $fields[] = Select::make("attr_$sectionIndex"."_$fieldIndex")
+                $fields[] = Select::make("attribute_$sectionIndex"."_$fieldIndex")
                     ->label('Attribute')
                     ->options(Attribute::where('id', $attributeId)->pluck('name', 'id'))
                     ->default($attributeId)
                     ->required();
 
-                $fields[] = Select::make("val_$sectionIndex"."_$fieldIndex")
+                $fields[] = Select::make("value_$sectionIndex"."_$fieldIndex")
                     ->label('Value')
                     ->options(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
                     ->default($valueId)
