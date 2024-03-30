@@ -13,6 +13,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -131,7 +132,8 @@ class Product extends Model
                         ->searchable()
                         ->preload()
                         ->required()
-                        ->live(),
+                        ->live()
+                        ->afterStateUpdated(fn (Set $set) => $set('attributeValues',NULL)),
 
                     Select::make('attributeValues')
                         ->label('Attribute Value')
@@ -190,14 +192,12 @@ class Product extends Model
             foreach ($combination as $attributeId => $valueId) {
                 $fields[] = Select::make("attribute_$sectionIndex"."_$fieldIndex")
                     ->label('Attribute')
-                    ->options(Attribute::where('id', $attributeId)->pluck('name', 'id'))
-                    ->default($attributeId)
+                    ->default(Attribute::where('id', $attributeId)->pluck('name', 'id'))
                     ->required();
 
                 $fields[] = Select::make("value_$sectionIndex"."_$fieldIndex")
                     ->label('Value')
-                    ->options(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
-                    ->default($valueId)
+                    ->default(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
                     ->required();
 
                 $fieldIndex++;
