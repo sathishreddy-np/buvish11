@@ -74,7 +74,7 @@ class Variant extends Model
                 ->schema(function (Get $get) {
                     return Variant::dynamicFields($get);
                 })
-                ->columnSpan(1)->columns(2)
+                ->columnSpanFull()
                 ->key('dynamicFields')
                 ->live()
         ];
@@ -82,47 +82,52 @@ class Variant extends Model
 
     public static function dynamicFields($get)
     {
-        $selected = collect($get('variantGenerator'))->filter(fn ($item) => !empty($item['attribute']) && !empty($item['attributeValues']));
+        $variantGenerator = collect($get('variantGenerator'))->filter(function ($item) {
+            return !empty($item['attribute']) && !empty($item['attributeValues']);
+        });
 
-        $all_attributes = $selected->values()->toArray();
+        $selectedAttributes = $variantGenerator->values()->toArray();
 
-        $all_possible_combinations = Variant::generateCombinations($all_attributes);
+        $allPossibleCombinations = Variant::generateCombinations($selectedAttributes);
 
+        $sections = [];
+        $sectionIndex = 0; // Initialize $sectionIndex here
 
-        $arrays = [];
-        foreach ($all_possible_combinations as $key => $value) {
+        foreach ($allPossibleCombinations as $combination) {
+            $fields = [];
+            $fieldIndex = 0;
 
-            array_push($arrays, $value);
-        }
-        $i = 0;
-        $j = 0;
-        $a = [];
-        $b = [];
+            $fields[] = FileUpload::make("image_$sectionIndex")
+                ->label('image')
+                ->required();
 
-        Log::info($arrays);
-
-        foreach ($arrays as $arr) {
-
-            $a[] = FileUpload::make("image_$i")->required();
-            $a[] = TextInput::make("price_$i")->required()->numeric();
-            foreach ($arr as $key => $value) {
-                $a[] = Select::make("attr_$i")
-                    ->options(Attribute::where('id', $key)->pluck('name', 'id'))
-                    ->default($key)
+            $fields[] = TextInput::make("price_$sectionIndex")
+                ->label('price')
+                ->required()
+                ->numeric();
+            foreach ($combination as $attributeId => $valueId) {
+                $fields[] = Select::make("attr_$sectionIndex" . "_$fieldIndex")
+                    ->label('Attribute')
+                    ->options(Attribute::where('id', $attributeId)->pluck('name', 'id'))
+                    ->default($attributeId)
                     ->required();
 
-                $a[] = Select::make("val_$i")
-                    ->options(AttributeValue::where('id', $value)->pluck('name', 'id'))
-                    ->default($value)
+                $fields[] = Select::make("val_$sectionIndex" . "_$fieldIndex")
+                    ->label('Value')
+                    ->options(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
+                    ->default($valueId)
                     ->required();
 
-                $i++;
+                $fieldIndex++;
             }
-            $b[] = Section::make("kk_$j")->schema($a);
-            $a = [];
-            $j++;
+
+            $sections[] = Section::make("Variant Combination - $sectionIndex")
+                ->schema($fields)->columnSpan(2)->columns(2);
+
+            $sectionIndex++;
         }
-        return $b;
+
+        return $sections;
     }
 
     public static function generateCombinations($attributes)
