@@ -18,4 +18,10 @@ class ViewProduct extends ViewRecord
             Actions\EditAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+
+        return $data['source'];
+    }
 }

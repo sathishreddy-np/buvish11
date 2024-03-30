@@ -27,28 +27,28 @@ class CreateProduct extends CreateRecord
     {
         try {
 
-                $new_data = [
-                    'team_id' => Filament::getTenant()->id,
-                    'name' => $data['name'],
-                    'brand_id' => $data['brand_id'],
-                    'description' => $data['description'],
-                    'meta_title' => $data['meta_title'],
-                    'meta_description' => $data['meta_description'],
-                    'hsn_code' => $data['hsn_code'],
-                    'sku_code' => $data['sku_code'],
-                    'barcode' => $data['barcode'],
-                    'is_taxable' => $data['is_taxable'],
-                    'is_vat_applied' => $data['is_vat_applied'],
-                    'is_coupon_applicable' => $data['is_coupon_applicable'],
-                    'is_digital' => $data['is_digital'],
-                    'digital_product_file' => $data['digital_product_file'] ?? null,
-                ];
+            $new_data = [
+                'team_id' => Filament::getTenant()->id,
+                'name' => $data['name'],
+                'brand_id' => $data['brand_id'],
+                'description' => $data['description'],
+                'meta_title' => $data['meta_title'],
+                'meta_description' => $data['meta_description'],
+                'hsn_code' => $data['hsn_code'],
+                'sku_code' => $data['sku_code'],
+                'barcode' => $data['barcode'],
+                'is_taxable' => $data['is_taxable'],
+                'is_vat_applied' => $data['is_vat_applied'],
+                'is_coupon_applicable' => $data['is_coupon_applicable'],
+                'is_digital' => $data['is_digital'],
+                'digital_product_file' => $data['digital_product_file'] ?? null,
+                'source' => $data
+            ];
 
-                $product_id = Product::create($new_data)->id;
-                $data['product_id'] = $product_id;
+            $product_id = Product::create($new_data)->id;
+            $data['product_id'] = $product_id;
 
             return $data;
-
         } catch (\Throwable $th) {
             Notification::make()
                 ->title('Something went wrong.')
@@ -67,22 +67,22 @@ class CreateProduct extends CreateRecord
                 $variantIndex = 1;
 
                 // Loop through each set of attributes
-                while (isset($data['attribute_'.$variantIndex.'_1'])) {
+                while (isset($data['attribute_' . $variantIndex . '_1'])) {
                     $variant = [];
                     $variant['product_id'] = $data['product_id'];
 
                     // Loop through attributes for this variant
                     $attributeIndex = 1;
-                    while (isset($data['attribute_'.$variantIndex.'_'.$attributeIndex])) {
-                        $attributeKey = 'attribute_'.$variantIndex.'_'.$attributeIndex;
-                        $valueKey = 'value_'.$variantIndex.'_'.$attributeIndex;
+                    while (isset($data['attribute_' . $variantIndex . '_' . $attributeIndex])) {
+                        $attributeKey = 'attribute_' . $variantIndex . '_' . $attributeIndex;
+                        $valueKey = 'value_' . $variantIndex . '_' . $attributeIndex;
                         $variant['variants'][$data[$attributeKey]] = $data[$valueKey];
                         $attributeIndex++;
                     }
 
                     // Add image and price for this variant
-                    $variant['image'] = $data['image_'.$variantIndex];
-                    $variant['price'] = $data['price_'.$variantIndex];
+                    $variant['image'] = $data['image_' . $variantIndex];
+                    $variant['price'] = $data['price_' . $variantIndex];
 
                     // Add this variant to the variants array
                     $variants[] = $variant;

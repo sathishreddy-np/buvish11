@@ -23,6 +23,10 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'source' => 'array',
+    ];
+
     public static function getForm(): array
     {
         return [
