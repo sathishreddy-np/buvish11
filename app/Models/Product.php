@@ -121,7 +121,7 @@ class Product extends Model
                         }),
                 ])->columnSpan(3),
 
-                Repeater::make('variantGenerator')
+            Repeater::make('variantGenerator')
                 ->schema([
                     Select::make('attribute')
                         ->label('Attribute')
@@ -231,7 +231,6 @@ class Product extends Model
 
         return $combinations;
     }
-
 
     public static function backAction()
     {
