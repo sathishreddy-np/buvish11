@@ -202,9 +202,7 @@ class Product extends Model
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {
-                Log::info('ok');
-                Log::info(Attribute::where('id', $attributeId)->pluck('id', 'name'));
-                Log::info($attributeId);
+
                 $fields[] = Select::make("attribute_$sectionIndex" . "_$fieldIndex")
                     ->label('Attribute')
                     ->options(Attribute::where('id', $attributeId)->pluck('id', 'name'))
