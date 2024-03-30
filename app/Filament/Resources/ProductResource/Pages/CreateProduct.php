@@ -46,7 +46,13 @@ class CreateProduct extends CreateRecord
             ];
 
             $product_id = Product::create($new_data)->id;
+            $categories = DB::table('category_product')->where('product_id',$product_id)->pluck('category_id');
+            $promotions = DB::table('product_promotion')->where('product_id',$product_id)->pluck('promotion_id');
+            $tags = DB::table('product_tag')->where('product_id',$product_id)->pluck('tag_id');
             $data['product_id'] = $product_id;
+            $data['categories'] = $categories;
+            $data['promotions'] = $promotions;
+            $data['tags'] = $tags;
 
             return $data;
         } catch (\Throwable $th) {

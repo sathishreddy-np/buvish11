@@ -21,7 +21,6 @@ class ViewProduct extends ViewRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-
         return $data['source'];
     }
 }
