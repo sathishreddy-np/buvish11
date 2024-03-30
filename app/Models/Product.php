@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Log;
 
 class Product extends Model
 {
@@ -157,7 +158,6 @@ class Product extends Model
                     return Variant::dynamicFields($get);
                 })
                 ->columnSpanFull()
-                ->key('dynamicFields')
                 ->visible(function (Get $get) {
                     if($get('variantGenerator')){
                         $first_repeater = collect($get('variantGenerator'))->values()->toArray()[0];
@@ -168,6 +168,7 @@ class Product extends Model
                     }
                     return false;
                 })
+                ->key('dynamicFields')
                 ->live(),
 
         ];
@@ -175,6 +176,7 @@ class Product extends Model
 
     public static function dynamicFields($get)
     {
+
         $variantGenerator = collect($get('variantGenerator'))->filter(function ($item) {
             return !empty($item['attribute']) && !empty($item['attributeValues']);
         });
@@ -200,9 +202,13 @@ class Product extends Model
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {
+                Log::info('ok');
+                Log::info(Attribute::where('id', $attributeId)->pluck('id', 'name'));
+                Log::info($attributeId);
                 $fields[] = Select::make("attribute_$sectionIndex" . "_$fieldIndex")
                     ->label('Attribute')
-                    ->default(Attribute::where('id', $attributeId)->pluck('name', 'id'))
+                    ->options(Attribute::where('id', $attributeId)->pluck('id', 'name'))
+                    ->default($attributeId)
                     ->required();
 
                 $fields[] = Select::make("value_$sectionIndex" . "_$fieldIndex")
