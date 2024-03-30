@@ -10,6 +10,7 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CreateProduct extends CreateRecord
 {
@@ -25,7 +26,6 @@ class CreateProduct extends CreateRecord
     protected function mutateFormDataBeforeCreate(array $data): array
     {
         try {
-            DB::transaction(function () use ($data) {
 
                 $new_data = [
                     'team_id' => Filament::getTenant()->id,
@@ -46,7 +46,6 @@ class CreateProduct extends CreateRecord
 
                 $product_id = Product::create($new_data)->id;
                 $data['product_id'] = $product_id;
-            });
 
             return $data;
 
