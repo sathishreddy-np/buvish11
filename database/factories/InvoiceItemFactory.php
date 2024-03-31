@@ -6,6 +6,7 @@ use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Team;
+use App\Models\Variant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,7 +26,7 @@ class InvoiceItemFactory extends Factory
             'invoice_id' => Invoice::inRandomOrder()->first(),
             'customer_id' => Customer::inRandomOrder()->first(),
             'product_id' => Product::inRandomOrder()->first(),
-            'currency' => fake()->currencyCode,
+            'variant_id' => Variant::inRandomOrder()->first(),
             'subtotal_amount' => fake()->numberBetween(1000, 10000),
             'subtax_amount' => fake()->numberBetween(100, 1000),
         ];

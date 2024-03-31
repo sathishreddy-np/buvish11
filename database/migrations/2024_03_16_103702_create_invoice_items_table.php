@@ -4,6 +4,7 @@ use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Team;
+use App\Models\Variant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->foreignIdFor(Invoice::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Customer::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class);
-            $table->string('currency');
+            $table->foreignIdFor(Variant::class);
             $table->integer('subtotal_amount');
             $table->integer('subtax_amount');
             $table->timestamps();

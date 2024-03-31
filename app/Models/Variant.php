@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Variant extends Model
 {
@@ -31,10 +32,15 @@ class Variant extends Model
         return $this->belongsTo(Product::class);
     }
 
-    public function currency(): BelongsTo
+    public function invoiceItems(): HasMany
     {
-        return $this->belongsTo(Currency::class);
+        return $this->hasMany(InvoiceItem::class);
     }
+
+    // public function currency(): BelongsTo
+    // {
+    //     return $this->belongsTo(Currency::class);
+    // }
 
     // public function attributes(): BelongsToMany
     // {

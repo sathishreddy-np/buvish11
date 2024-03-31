@@ -43,9 +43,6 @@ class ApplyTenantScopes
         Category::addGlobalScope(
             fn (Builder $query) => $query->whereBelongsTo(Filament::getTenant()),
         );
-        Company::addGlobalScope(
-            fn (Builder $query) => $query->whereBelongsTo(Filament::getTenant()),
-        );
         Coupon::addGlobalScope(
             fn (Builder $query) => $query->whereBelongsTo(Filament::getTenant()),
         );
