@@ -84,6 +84,13 @@ class Team extends Model
                     ->preload()
                     ->searchable()
                     ->required(),
+                Select::make('currency_id')
+                    ->label('Timezone')
+                    ->options(Currency::all()->pluck('name', 'id'))
+                    ->preload()
+                    ->searchable()
+                    ->required(),
+
             ])->columnSpanFull()->columns(2),
         ];
     }
@@ -99,6 +106,11 @@ class Team extends Model
     public function timezone(): BelongsTo
     {
         return $this->belongsTo(Timezone::class);
+    }
+
+    public function currency(): BelongsTo
+    {
+        return $this->belongsTo(Currency::class);
     }
 
     public function country(): BelongsTo

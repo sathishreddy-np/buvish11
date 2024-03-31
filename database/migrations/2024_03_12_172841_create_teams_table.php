@@ -3,6 +3,7 @@
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\State;
 use App\Models\Timezone;
 use Illuminate\Database\Migrations\Migration;
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->foreignIdFor(City::class);
             $table->string('postcode');
             $table->foreignIdFor(Timezone::class);
+            $table->foreignIdFor(Currency::class);
             $table->timestamps();
         });
     }

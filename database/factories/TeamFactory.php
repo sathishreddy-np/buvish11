@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\Country;
+use App\Models\Currency;
 use App\Models\State;
 use App\Models\Timezone;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -39,6 +40,7 @@ class TeamFactory extends Factory
             'country_id' => $country_id,
             'postcode' => fake()->postcode(),
             'timezone_id' => Timezone::inRandomOrder()->first()->id,
+            'currency_id' => Currency::inRandomOrder()->first()->id,
         ];
     }
 }

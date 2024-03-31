@@ -48,7 +48,7 @@ class TeamResource extends Resource
                     ->searchable()
                     ->sortable()
                     ->formatStateUsing(function ($state, Team $team) {
-                        return $team->country_code.'-'.$state;
+                        return $team->country_code . '-' . $state;
                     }),
                 Tables\Columns\TextColumn::make('city')
                     ->sortable()
@@ -67,6 +67,10 @@ class TeamResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('timezone')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('currency')
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
