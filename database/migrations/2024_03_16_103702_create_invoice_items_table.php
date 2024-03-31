@@ -22,8 +22,10 @@ return new class extends Migration
             $table->foreignIdFor(Invoice::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Customer::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class);
-            $table->foreignIdFor(Variant::class);
-            $table->integer('price')->default(0);
+            $table->string('variant_name');
+            $table->integer('variant_price')->default(0);
+            $table->boolean('is_tax');
+            $table->string('hsn_code');
             $table->timestamps();
         });
     }

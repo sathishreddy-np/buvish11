@@ -26,8 +26,10 @@ class InvoiceItemFactory extends Factory
             'invoice_id' => Invoice::inRandomOrder()->first(),
             'customer_id' => Customer::inRandomOrder()->first(),
             'product_id' => Product::inRandomOrder()->first(),
-            'variant_id' => Variant::inRandomOrder()->first(),
-            'price' => fake()->randomNumber(),
+            'variant_name' => fake()->name(),
+            'variant_price' => fake()->randomNumber(),
+            'is_tax' => fake()->randomElement([true,false]),
+            'hsn_code' => fake()->word()
         ];
     }
 }
