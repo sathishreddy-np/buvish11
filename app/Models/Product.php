@@ -199,6 +199,7 @@ class Product extends Model
 
             $fields[] = TextInput::make("price_$sectionIndex")
                 ->label('Price')
+                ->minValue(0)
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {

@@ -43,7 +43,7 @@ class InvoiceItem extends Model
         return Action::make('back')
             ->label('Back')
             ->color('warning')
-            ->url(route('filament.admin.resources.invoiceItems.index', Filament::getTenant()));
+            ->url(route('filament.admin.resources.invoice-items.index', Filament::getTenant()));
     }
 
     public function team(): BelongsTo
