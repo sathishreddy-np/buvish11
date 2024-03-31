@@ -37,13 +37,13 @@ class EditProduct extends EditRecord
 
         $product_id = $record->id;
 
-        $categories = DB::table('category_product')->where('product_id',$product_id)->pluck('category_id');
-            $promotions = DB::table('product_promotion')->where('product_id',$product_id)->pluck('promotion_id');
-            $tags = DB::table('product_tag')->where('product_id',$product_id)->pluck('tag_id');
-            $data['product_id'] = $product_id;
-            $data['categories'] = $categories;
-            $data['promotions'] = $promotions;
-            $data['tags'] = $tags;
+        $categories = DB::table('category_product')->where('product_id', $product_id)->pluck('category_id');
+        $promotions = DB::table('product_promotion')->where('product_id', $product_id)->pluck('promotion_id');
+        $tags = DB::table('product_tag')->where('product_id', $product_id)->pluck('tag_id');
+        $data['product_id'] = $product_id;
+        $data['categories'] = $categories;
+        $data['promotions'] = $promotions;
+        $data['tags'] = $tags;
 
         $new_data = [
             'team_id' => Filament::getTenant()->id,
@@ -93,12 +93,14 @@ class EditProduct extends EditRecord
                     $variants[] = $variant;
                     $variantIndex++;
                 }
-                $all_variant_ids = Variant::where('product_id',$record->id)->pluck('id');
+                $all_variant_ids = Variant::where('product_id', $record->id)->pluck('id');
 
-                Variant::whereIn('id',$all_variant_ids)->delete();
-                DB::table('attribute_variant')->whereIn('variant_id',$all_variant_ids)->delete();
+                // Variant::whereIn('id', $all_variant_ids)->delete();
+                DB::table('attribute_variant')->whereIn('variant_id', $all_variant_ids)->delete();
+                $k = 0;
                 foreach ($variants as $variant) {
                     $variant_id = Variant::updateOrCreate(
+                        ['id' => $all_variant_ids[$k]],
                         [
                             'team_id' => Filament::getTenant()->id,
                             'product_id' => $variant['product_id'],
@@ -106,6 +108,7 @@ class EditProduct extends EditRecord
                             'price' => $variant['price'],
                         ]
                     )->id;
+                    $k++;
 
                     $variant_name = "";
                     foreach ($variant['variants'] as $attribute_id => $value_id) {
@@ -117,14 +120,13 @@ class EditProduct extends EditRecord
                             'updated_at' => now(),
                         ]);
 
-                        $attribute = Attribute::where('id',$attribute_id)->first();
-                        $value = AttributeValue::where('id',$value_id)->first();
-                        if($attribute && $value){
-                            $variant_name .= '( '. $attribute->name . ': ' . $value->name .' ) ';
+                        $attribute = Attribute::where('id', $attribute_id)->first();
+                        $value = AttributeValue::where('id', $value_id)->first();
+                        if ($attribute && $value) {
+                            $variant_name .= '( ' . $attribute->name . ': ' . $value->name . ' ) ';
                         }
                     }
-                    DB::table('variants')->where('id',$variant_id)->update(['name' => $variant_name]);
-
+                    DB::table('variants')->where('id', $variant_id)->update(['name' => $variant_name]);
                 }
             });
 
