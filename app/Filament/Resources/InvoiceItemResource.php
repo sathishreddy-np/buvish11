@@ -42,8 +42,9 @@ class InvoiceItemResource extends Resource
                     ->numeric()
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('variant.id')
+                Tables\Columns\TextColumn::make('variant.name')
                     ->searchable()
+                    ->badge()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('price')
                     ->searchable()

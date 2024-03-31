@@ -211,7 +211,8 @@ class Product extends Model
 
                 $fields[] = Select::make("value_$sectionIndex" . "_$fieldIndex")
                     ->label('Value')
-                    ->default(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
+                    ->options(AttributeValue::where('id', $valueId)->pluck('name', 'id'))
+                    ->default($valueId)
                     ->required();
 
                 $fieldIndex++;

@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\ProductResource\Pages;
 
 use App\Filament\Resources\ProductResource;
+use App\Models\Attribute;
+use App\Models\AttributeValue;
 use App\Models\Product;
 use App\Models\Variant;
 use Filament\Facades\Filament;
@@ -104,7 +106,7 @@ class CreateProduct extends CreateRecord
                             'price' => $variant['price'],
                         ]
                     )->id;
-
+                    $variant_name = '';
                     foreach ($variant['variants'] as $attribute_id => $value_id) {
                         DB::table('attribute_variant')->insert([
                             'variant_id' => $variant_id,
@@ -113,7 +115,14 @@ class CreateProduct extends CreateRecord
                             'created_at' => now(),
                             'updated_at' => now(),
                         ]);
+
+                        $attribute = Attribute::where('id',$attribute_id)->first();
+                        $value = AttributeValue::where('id',$value_id)->first();
+                        if($attribute && $value){
+                            $variant_name .= '( '. $attribute->name . ' : ' . $value->name .' ) ';
+                        }
                     }
+                    DB::table('variants')->where('id',$variant_id)->update(['name' => $variant_name]);
                 }
             });
 

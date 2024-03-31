@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Team::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class)->constrained()->cascadeOnDelete();
+            $table->string('name')->nullable();
             $table->text('image');
             $table->integer('price');
             $table->timestamps();

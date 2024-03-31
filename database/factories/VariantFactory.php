@@ -21,6 +21,7 @@ class VariantFactory extends Factory
         return [
             'team_id' => Team::inRandomOrder()->first(),
             'product_id' => Product::inRandomOrder()->first(),
+            'name' => fake()->name(),
             'image' => fake()->imageUrl(),
             'price' => fake()->numberBetween(100, 1000),
         ];
