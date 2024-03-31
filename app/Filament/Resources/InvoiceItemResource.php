@@ -38,6 +38,10 @@ class InvoiceItemResource extends Resource
                     ->numeric()
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('invoice.invoice_id')
+                    ->label('Invoice Id')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('product.name')
                     ->numeric()
                     ->searchable()
