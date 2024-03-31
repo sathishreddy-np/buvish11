@@ -155,7 +155,7 @@ class Product extends Model
 
             Grid::make(4)
                 ->schema(function (Get $get) {
-                    return Variant::dynamicFields($get);
+                    return Product::dynamicFields($get);
                 })
                 ->columnSpanFull()
                 ->visible(function (Get $get) {
@@ -183,7 +183,7 @@ class Product extends Model
 
         $selectedAttributes = $variantGenerator->values()->toArray();
 
-        $allPossibleCombinations = Variant::generateCombinations($selectedAttributes);
+        $allPossibleCombinations = Product::generateCombinations($selectedAttributes);
 
         $sections = [];
         $sectionIndex = 1;
@@ -203,10 +203,9 @@ class Product extends Model
                 ->required()
                 ->numeric();
             foreach ($combination as $attributeId => $valueId) {
-
                 $fields[] = Select::make("attribute_$sectionIndex" . "_$fieldIndex")
                     ->label('Attribute')
-                    ->options(Attribute::where('id', $attributeId)->pluck('id', 'name'))
+                    ->options(Attribute::where('id', $attributeId)->pluck('name', 'id'))
                     ->default($attributeId)
                     ->required();
 
