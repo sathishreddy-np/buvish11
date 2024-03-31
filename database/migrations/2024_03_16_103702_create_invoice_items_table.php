@@ -23,8 +23,7 @@ return new class extends Migration
             $table->foreignIdFor(Customer::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Product::class);
             $table->foreignIdFor(Variant::class);
-            $table->integer('subtotal_amount');
-            $table->integer('subtax_amount');
+            $table->integer('price')->default(0);
             $table->timestamps();
         });
     }

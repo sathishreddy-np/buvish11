@@ -2,17 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Models\Customer;
-use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\Team;
-use App\Models\Variant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\InvoiceItem>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Varient>
  */
-class InvoiceItemFactory extends Factory
+class VariantFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,11 +20,9 @@ class InvoiceItemFactory extends Factory
     {
         return [
             'team_id' => Team::inRandomOrder()->first(),
-            'invoice_id' => Invoice::inRandomOrder()->first(),
-            'customer_id' => Customer::inRandomOrder()->first(),
             'product_id' => Product::inRandomOrder()->first(),
-            'variant_id' => Variant::inRandomOrder()->first(),
-            'price' => fake()->randomNumber(),
+            'image' => fake()->imageUrl(),
+            'price' => fake()->numberBetween(100, 1000),
         ];
     }
 }

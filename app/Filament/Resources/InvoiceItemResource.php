@@ -42,13 +42,12 @@ class InvoiceItemResource extends Resource
                     ->numeric()
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('subtotal_amount')
-                    ->label('Subtotal Amount')
+                Tables\Columns\TextColumn::make('variant.id')
                     ->searchable()
-                    ->sortable()
-                    ->formatStateUsing(function ($state, InvoiceItem $invoiceItem) {
-                        return $invoiceItem->currency.' '.$state;
-                    }),
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

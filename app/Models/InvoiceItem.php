@@ -26,15 +26,12 @@ class InvoiceItem extends Model
             Select::make('product_id')
                 ->relationship('product', 'name')
                 ->required(),
-            TextInput::make('currency')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('subtotal_amount')
-                ->required()
-                ->numeric(),
-            TextInput::make('subtax_amount')
-                ->required()
-                ->numeric(),
+            Select::make('variant_id')
+                ->relationship('variant', 'name')
+                ->required(),
+            TextInput::make('price')
+                ->label('Price')
+                ->required(),
         ];
     }
 
@@ -59,6 +56,11 @@ class InvoiceItem extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function variant(): BelongsTo
+    {
+        return $this->belongsTo(Variant::class);
     }
 
     public function customer(): BelongsTo
