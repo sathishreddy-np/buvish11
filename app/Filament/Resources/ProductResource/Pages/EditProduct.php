@@ -95,12 +95,10 @@ class EditProduct extends EditRecord
                 }
                 $all_variant_ids = Variant::where('product_id', $record->id)->pluck('id');
 
-                // Variant::whereIn('id', $all_variant_ids)->delete();
+                Variant::whereIn('id', $all_variant_ids)->delete();
                 DB::table('attribute_variant')->whereIn('variant_id', $all_variant_ids)->delete();
-                $k = 0;
                 foreach ($variants as $variant) {
                     $variant_id = Variant::updateOrCreate(
-                        ['id' => $all_variant_ids[$k]],
                         [
                             'team_id' => Filament::getTenant()->id,
                             'product_id' => $variant['product_id'],
@@ -108,7 +106,6 @@ class EditProduct extends EditRecord
                             'price' => $variant['price'],
                         ]
                     )->id;
-                    $k++;
 
                     $variant_name = "";
                     foreach ($variant['variants'] as $attribute_id => $value_id) {
