@@ -44,13 +44,6 @@ class InvoiceResource extends Resource
                 Tables\Columns\TextColumn::make('invoice_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('total_amount')
-                    ->label('Total Amount')
-                    ->searchable()
-                    ->sortable()
-                    ->formatStateUsing(function ($state, Invoice $invoice) {
-                        return $invoice->currency.' '.$state;
-                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

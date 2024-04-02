@@ -19,9 +19,6 @@ return new class extends Migration
             $table->foreignIdFor(Customer::class)->constrained()->cascadeOnDelete();
             $table->string('invoice_id');
             $table->date('invoice_date');
-            $table->string('currency');
-            $table->integer('total_amount');
-            $table->integer('tax_amount');
             $table->timestamps();
         });
     }

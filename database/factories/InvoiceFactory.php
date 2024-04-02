@@ -23,9 +23,6 @@ class InvoiceFactory extends Factory
             'customer_id' => Customer::inRandomOrder()->first(),
             'invoice_id' => fake()->numerify('######'),
             'invoice_date' => fake()->date,
-            'currency' => fake()->currencyCode,
-            'total_amount' => fake()->numberBetween(1000, 10000),
-            'tax_amount' => fake()->numberBetween(100, 1000),
         ];
     }
 }

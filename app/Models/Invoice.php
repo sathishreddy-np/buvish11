@@ -5,6 +5,7 @@ namespace App\Models;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -19,23 +20,21 @@ class Invoice extends Model
     public static function getForm(): array
     {
         return [
-            Select::make('customer_id')
-                ->relationship('customer', 'name')
-                ->required(),
-            TextInput::make('invoice_id')
-                ->required()
-                ->maxLength(255),
-            DatePicker::make('invoice_date')
-                ->required(),
-            TextInput::make('currency')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('total_amount')
-                ->required()
-                ->numeric(),
-            TextInput::make('tax_amount')
-                ->required()
-                ->numeric(),
+            Section::make()->schema([
+                Select::make('customer_id')
+                    ->relationship('customer', 'name')
+                    ->searchable()
+                    ->preload()
+                    ->required(),
+                TextInput::make('invoice_id')
+                    ->label('Invoice Id')
+                    ->prefix('#')
+                    ->required()
+                    ->maxLength(255),
+                DatePicker::make('invoice_date')
+                    ->required(),
+            ])->columnSpanFull()->columns(2)
+
         ];
     }
 
