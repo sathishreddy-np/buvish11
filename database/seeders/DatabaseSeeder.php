@@ -70,10 +70,12 @@ class DatabaseSeeder extends Seeder
             'Role', 'Permission', 'User',
             'Company', 'Team', 'Customer',
             'Product', 'Invoice', 'InvoiceItem',
-            'Category', 'Payment',
+            'Category', 'Payment', 'Attribute',
+            'AttributeValue', 'Brand', 'Coupon',
+            'Promotion', 'Tag',
         ];
 
-        $permissions = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
+        $permissions = ['viewAny', 'view', 'create', 'update', 'delete', 'deleteAny', 'restore', 'restoreAny', 'forceDelete', 'forceDeleteAny'];
         foreach ($models as $model) {
             foreach ($permissions as $permission) {
                 $record = [
@@ -103,5 +105,12 @@ class DatabaseSeeder extends Seeder
 
         $roles = Role::all();
         $user->roles()->attach($roles);
+
+        $role = Role::where('name', 'Admin')->first();
+        $permissions = Permission::all();
+
+        if ($role) {
+            $role->permissions()->attach($permissions);
+        }
     }
 }

@@ -118,11 +118,11 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function canAccessPanel(Panel $panel): bool
     {
-        $this->brand($panel);
+        $this->logo($panel);
         return true;
     }
 
-    public function brand(Panel $panel){
+    public function logo(Panel $panel){
         $name = auth()->user()->company->name;
         $image = auth()->user()->company->image;
         $panel
