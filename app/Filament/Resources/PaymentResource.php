@@ -41,15 +41,8 @@ class PaymentResource extends Resource
                 Tables\Columns\TextColumn::make('amount_paid')
                     ->label('Amount Paid')
                     ->searchable()
-                    ->sortable()
-                    ->formatStateUsing(function ($state, Payment $payment) {
-                        return $payment->currency.' '.$state;
-                    }),
-                Tables\Columns\TextColumn::make('payment_gateway')
-                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('transaction_reference')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('payment_gateway')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('transaction_mode')
@@ -57,6 +50,11 @@ class PaymentResource extends Resource
                 Tables\Columns\TextColumn::make('transaction_date')
                     ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('transaction_reference')
+                    ->numeric()
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

@@ -19,7 +19,6 @@ return new class extends Migration
             $table->foreignIdFor(Team::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Customer::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(Invoice::class)->constrained()->cascadeOnDelete();
-            $table->string('currency');
             $table->integer('amount_paid');
             $table->string('payment_gateway');
             $table->integer('transaction_reference');

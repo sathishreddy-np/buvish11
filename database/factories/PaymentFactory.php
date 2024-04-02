@@ -23,7 +23,6 @@ class PaymentFactory extends Factory
             'team_id' => Team::inRandomOrder()->first(),
             'customer_id' => Customer::inRandomOrder()->first(),
             'invoice_id' => Invoice::inRandomOrder()->first(),
-            'currency' => fake()->currencyCode,
             'amount_paid' => fake()->numberBetween(100, 10000),
             'payment_gateway' => fake()->randomElement(['Razorpay', 'Stripe', 'GPay', 'PhonePe']),
             'transaction_reference' => fake()->randomNumber(),
