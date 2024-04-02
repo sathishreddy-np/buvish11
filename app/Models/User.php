@@ -118,8 +118,19 @@ class User extends Authenticatable implements FilamentUser, HasTenants
 
     public function canAccessPanel(Panel $panel): bool
     {
+        $this->brand($panel);
         return true;
     }
+
+    public function brand(Panel $panel){
+        $name = auth()->user()->company->name;
+        $image = auth()->user()->company->image;
+        $panel
+        // ->brandLogo(asset($image))
+            ->brandLogo(fn () => view('filament.admin.logo', ['name' => $name, 'image' => $image]))
+            ->favicon(asset($image));
+    }
+
 
     public function getTenants(Panel $panel): Collection
     {

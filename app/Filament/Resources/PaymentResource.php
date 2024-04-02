@@ -49,7 +49,8 @@ class PaymentResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('transaction_date')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('transaction_reference')
                     ->numeric()
                     ->searchable()

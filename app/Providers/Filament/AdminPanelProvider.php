@@ -5,6 +5,7 @@ namespace App\Providers\Filament;
 use App\Filament\Pages\Tenancy\RegisterTeam;
 use App\Http\Middleware\ApplyTenantScopes;
 use App\Models\Team;
+use Filament\Facades\Filament;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;

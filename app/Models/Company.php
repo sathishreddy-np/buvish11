@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,6 +19,12 @@ class Company extends Model
     {
         return [
             Section::make()->schema([
+                FileUpload::make('image')
+                ->label('Logo')
+                ->image()
+                ->imageEditor()
+                ->imageCropAspectRatio('4:4')
+                ->required(),
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
