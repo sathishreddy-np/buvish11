@@ -2,38 +2,45 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\BrandResource\Pages;
-use App\Models\Brand;
+use App\Filament\Resources\LimitResource\Pages;
+use App\Filament\Resources\LimitResource\RelationManagers;
+use App\Models\Limit;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class BrandResource extends Resource
+class LimitResource extends Resource
 {
-    protected static ?string $model = Brand::class;
+    protected static bool $isScopedToTenant = false;
 
-    protected static ?string $navigationIcon = 'heroicon-s-bookmark-square';
+    protected static ?string $model = Limit::class;
 
-    protected static ?string $navigationGroup = 'Catalog';
+    protected static ?string $navigationIcon = 'heroicon-m-cube-transparent';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(Brand::getForm());
+            ->schema(
+                Limit::getForm()
+            );
     }
 
     public static function table(Table $table): Table
     {
         return $table
-        ->persistFiltersInSession()
-        ->persistSearchInSession()
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
             ->columns([
-                Tables\Columns\TextColumn::make('team.name')
+                Tables\Columns\TextColumn::make('company.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('model')
+                    ->label('Access To')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -72,10 +79,10 @@ class BrandResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBrands::route('/'),
-            'create' => Pages\CreateBrand::route('/create'),
-            'view' => Pages\ViewBrand::route('/{record}'),
-            'edit' => Pages\EditBrand::route('/{record}/edit'),
+            'index' => Pages\ListLimits::route('/'),
+            'create' => Pages\CreateLimit::route('/create'),
+            'view' => Pages\ViewLimit::route('/{record}'),
+            'edit' => Pages\EditLimit::route('/{record}/edit'),
         ];
     }
 }

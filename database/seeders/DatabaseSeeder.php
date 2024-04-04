@@ -11,6 +11,7 @@ use App\Models\Coupon;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
+use App\Models\Limit;
 use App\Models\Payment;
 use App\Models\Permission;
 use App\Models\Product;
@@ -53,6 +54,7 @@ class DatabaseSeeder extends Seeder
                     ->has(Tag::factory(5))
                     ->has(Promotion::factory(5))
             )
+            ->has(Limit::factory())
             ->createQuietly();
 
         $teams = Team::all();
@@ -66,19 +68,23 @@ class DatabaseSeeder extends Seeder
 
         $user->teams()->attach($teams);
 
-        $models = [
-            'Role', 'Permission', 'User',
-            'Company', 'Team', 'Customer',
-            'Product', 'Invoice', 'InvoiceItem',
-            'Category', 'Payment', 'Attribute',
-            'AttributeValue', 'Brand', 'Coupon',
-            'Promotion', 'Tag',
-        ];
+        // $models = [
+        //     'Role', 'Permission', 'User',
+        //     'Company', 'Team', 'Customer',
+        //     'Product', 'Invoice', 'InvoiceItem',
+        //     'Category', 'Payment', 'Attribute',
+        //     'AttributeValue', 'Brand', 'Coupon',
+        //     'Promotion', 'Tag',
+        // ];
+
+        $models = Limit::where('company_id', $company->id)->get()->pluck('model');
 
         $permissions = ['viewAny', 'view', 'create', 'update', 'delete', 'deleteAny', 'restore', 'restoreAny', 'forceDelete', 'forceDeleteAny'];
         foreach ($models as $model) {
             foreach ($permissions as $permission) {
+                $model = ucwords($model);
                 $record = [
+                    'company_id' => $company->id,
                     'name' => "$model::$permission",
                     'guard_name' => 'web',
                 ];
@@ -86,7 +92,7 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        $roles = ['Admin', 'Manager', 'Trainer', 'Receptionist', 'Accountant'];
+        $roles = ['Super Admin','Admin', 'Manager', 'Trainer', 'Receptionist', 'Accountant'];
         foreach ($roles as $role) {
             $record = [
                 'company_id' => $company->id,

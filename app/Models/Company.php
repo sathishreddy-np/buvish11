@@ -54,4 +54,10 @@ class Company extends Model
     {
         return $this->hasMany(Team::class);
     }
+
+    public function limits(): HasMany
+    {
+        return $this->hasMany(Limit::class);
+    }
+
 }
