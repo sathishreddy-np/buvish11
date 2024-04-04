@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Customer;
 use App\Models\User;
-use Illuminate\Auth\Access\Response;
 
 class CustomerPolicy
 {
@@ -51,7 +50,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can bulk delete the model.
      */
-    public function deleteAny(User $user, Customer $customer): bool
+    public function deleteAny(User $user): bool
     {
         return $user->hasPermissionTo('Customer::deleteAny');
     }
@@ -68,7 +67,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can bulk restore the model.
      */
-    public function restoreAny(User $user, Customer $customer): bool
+    public function restoreAny(User $user): bool
     {
         return $user->hasPermissionTo('Customer::restoreAny');
     }
@@ -85,7 +84,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can bulk permanently delete the model.
      */
-    public function forceDeleteAny(User $user, Customer $customer): bool
+    public function forceDeleteAny(User $user): bool
     {
         return $user->hasPermissionTo('Customer::forceDeleteAny');
     }
