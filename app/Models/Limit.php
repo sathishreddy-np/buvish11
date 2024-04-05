@@ -23,10 +23,13 @@ class Limit extends Model
             Section::make()->schema([
                 Select::make('company_id')
                     ->relationship('company', 'name', modifyQueryUsing:fn (Builder $query) => $query->where('id', Filament::getTenant()->company_id))
-                    ->required(),
-                TextInput::make('model')
                     ->required()
-                    ->maxLength(255),
+                    ->searchable()
+                    ->preload(),
+                Select::make('model')
+                ->searchable()
+                ->multiple()
+                ->preload(),
             ]),
         ];
     }
