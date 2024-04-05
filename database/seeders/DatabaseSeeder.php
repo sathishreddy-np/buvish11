@@ -68,16 +68,19 @@ class DatabaseSeeder extends Seeder
 
         $user->teams()->attach($teams);
 
-        // $models = [
-        //     'Role', 'Permission', 'User',
-        //     'Company', 'Team', 'Customer',
-        //     'Product', 'Invoice', 'InvoiceItem',
-        //     'Category', 'Payment', 'Attribute',
-        //     'AttributeValue', 'Brand', 'Coupon',
-        //     'Promotion', 'Tag',
-        // ];
+        $all_models = array_slice(array_map(fn ($value) => str_replace('.php', '', $value), scandir(app_path('Models'))), 2);
+        $exclude_models = [
+            'City',
+            'State',
+            'Country',
+            'Timezone',
+            'Currency',
+            'Language',
+            'Limit', // Super Admin only have access
+        ];
+        $models = array_diff($models, $exclude_models);
 
-        $models = Limit::where('company_id', $company->id)->get()->pluck('model');
+        // $models = Limit::where('company_id', $company->id)->get()->pluck('model');
 
         $permissions = ['viewAny', 'view', 'create', 'update', 'delete', 'deleteAny', 'restore', 'restoreAny', 'forceDelete', 'forceDeleteAny'];
         foreach ($models as $model) {
