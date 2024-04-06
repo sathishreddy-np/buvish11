@@ -78,7 +78,7 @@ class DatabaseSeeder extends Seeder
             'Language',
             'Limit', // Super Admin only have access
         ];
-        $models = array_diff($models, $exclude_models);
+        $models = array_diff($all_models, $exclude_models);
 
         // $models = Limit::where('company_id', $company->id)->get()->pluck('model');
 
@@ -87,7 +87,6 @@ class DatabaseSeeder extends Seeder
             foreach ($permissions as $permission) {
                 $model = ucwords($model);
                 $record = [
-                    'company_id' => $company->id,
                     'name' => "$model::$permission",
                     'guard_name' => 'web',
                 ];
@@ -120,6 +119,7 @@ class DatabaseSeeder extends Seeder
 
         if ($role) {
             $role->permissions()->attach($permissions);
+            $company->permissions()->attach($permissions);
         }
     }
 }

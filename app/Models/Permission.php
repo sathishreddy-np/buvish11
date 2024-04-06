@@ -8,6 +8,7 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\Models\Permission as ModelsPermission;
 
 class Permission extends ModelsPermission
@@ -35,5 +36,10 @@ class Permission extends ModelsPermission
             ->label('Back')
             ->color('warning')
             ->url(route('filament.admin.resources.permissions.index', Filament::getTenant()));
+    }
+
+    public function companies():BelongsToMany
+    {
+        return $this->belongsToMany(Company::class)->withTimestamps();
     }
 }
