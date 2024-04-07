@@ -62,10 +62,10 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->sidebarCollapsibleOnDesktop()
             ->tenant(Team::class)
-            ->tenantRegistration(RegisterTeam::class)
-            ->tenantMiddleware([
-                ApplyTenantScopes::class,
-            ], isPersistent: true);
+            ->tenantRegistration(RegisterTeam::class);
+            // ->tenantMiddleware([
+            //     ApplyTenantScopes::class,
+            // ], isPersistent: true);
     }
 
     public function register(): void

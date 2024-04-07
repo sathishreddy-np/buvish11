@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
+use Filament\Actions\Action;
 use Filament\Facades\Filament;
-use Filament\Forms\Components\Actions\Action;
+use Filament\Forms\Components\Actions\Action as ActionsAction;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
@@ -40,7 +41,7 @@ class Role extends ModelsRole
                     ->required()
                     ->bulkToggleable()
                     ->selectAllAction(
-                        fn (Action $action) => $action->label('Select all permissions'),
+                        fn (ActionsAction $action) => $action->label('Select all permissions'),
                     )
                     ->searchPrompt('Search for permissions')
                     ->noSearchResultsMessage('No results found.')

@@ -19,7 +19,7 @@ class LimitFactory extends Factory
     {
         return [
             'company_id' => Company::inRandomOrder()->first(),
-            'model' => 'customer'
+            'model' => 'Customer'
         ];
     }
 }
