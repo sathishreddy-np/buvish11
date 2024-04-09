@@ -57,7 +57,7 @@ class DatabaseSeeder extends Seeder
                     ->has(Coupon::factory(5))
                     ->has(Tag::factory(5))
                     ->has(Promotion::factory(5))
-                    ->has(Activity::factory(2)->has(Availability::factory(7))->has(Timing::factory(70))->has(Restriction::factory(3)))
+                    ->has(Activity::factory(2)->has(Availability::factory(7)->has(Timing::factory(70)))->has(Restriction::factory(3)))
             )
             ->has(Limit::factory())
             ->createQuietly();

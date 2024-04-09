@@ -38,9 +38,6 @@ class TimingResource extends Resource
                 Tables\Columns\TextColumn::make('team.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('availability.activity.name')
-                    ->searchable()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('availability.day')
                     ->searchable()
                     ->sortable(),
