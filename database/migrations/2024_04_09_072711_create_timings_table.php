@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Activity;
+use App\Models\Availability;
 use App\Models\Team;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('availabilities', function (Blueprint $table) {
+        Schema::create('timings', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Team::class);
-            $table->foreignIdFor(Activity::class);
-            $table->string('day');
+            $table->foreignIdFor(Availability::class);
+            $table->time('starts_at');
+            $table->time('ends_at');
+            $table->integer('availability');
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('availabilities');
+        Schema::dropIfExists('timings');
     }
 };

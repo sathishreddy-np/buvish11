@@ -66,6 +66,6 @@ class Restriction extends Model
 
     public function activity(): BelongsTo
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Activity::class);
     }
 }

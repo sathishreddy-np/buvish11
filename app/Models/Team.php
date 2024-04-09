@@ -213,6 +213,12 @@ class Team extends Model
         return $this->hasMany(Availability::class);
     }
 
+    public function timings(): HasMany
+    {
+        return $this->hasMany(Timing::class);
+    }
+
+
     public function restrictions(): HasMany
     {
         return $this->hasMany(Restriction::class);

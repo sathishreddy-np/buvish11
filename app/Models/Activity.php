@@ -23,12 +23,6 @@ class Activity extends Model
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Select::make('allowed_genders')
-                    ->required(),
-                TextInput::make('minimum_age')
-                    ->required()
-                    ->minValue(1)
-                    ->numeric(),
 
             ])->columnSpanFull()
 
@@ -41,7 +35,7 @@ class Activity extends Model
         return Action::make('back')
             ->label('Back')
             ->color('warning')
-            ->url(route('filament.admin.resources.products.index', Filament::getTenant()));
+            ->url(route('filament.admin.resources.activities.index', Filament::getTenant()));
     }
 
     public function team(): BelongsTo

@@ -2,15 +2,14 @@
 
 namespace Database\Factories;
 
-use App\Enums\DayEnum;
-use App\Models\Activity;
+use App\Models\Availability;
 use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Availability>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Timing>
  */
-class AvailabilityFactory extends Factory
+class TimingFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,8 +20,10 @@ class AvailabilityFactory extends Factory
     {
         return [
             'team_id' => Team::inRandomOrder()->first(),
-            'activity_id' => Activity::inRandomOrder()->first(),
-            'day' => fake()->randomElement(DayEnum::class),
+            'availability_id' => Availability::inRandomOrder()->first(),
+            'starts_at' => fake()->time(),
+            'ends_at' => fake()->time(),
+            'availability' => fake()->randomNumber(),
         ];
     }
 }
