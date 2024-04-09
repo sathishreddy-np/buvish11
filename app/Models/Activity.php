@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Activity extends Model
 {
@@ -22,6 +23,13 @@ class Activity extends Model
                 TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Select::make('allowed_genders')
+                    ->required(),
+                TextInput::make('minimum_age')
+                    ->required()
+                    ->minValue(1)
+                    ->numeric(),
+
             ])->columnSpanFull()
 
         ];
@@ -41,5 +49,14 @@ class Activity extends Model
         return $this->belongsTo(Team::class);
     }
 
+    public function availabilities(): HasMany
+    {
+        return $this->hasMany(Availability::class);
+    }
+
+    public function restrictions(): HasMany
+    {
+        return $this->hasMany(Restriction::class);
+    }
 
 }

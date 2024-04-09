@@ -29,7 +29,6 @@ return new class extends Migration
             $table->boolean('is_coupon_applicable')->default(false);
             $table->boolean('is_digital')->default(false);
             $table->text('digital_product_file')->nullable();
-            $table->json('source')->nullable();
             $table->timestamps();
         });
     }

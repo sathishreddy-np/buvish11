@@ -207,4 +207,15 @@ class Team extends Model
     {
         return $this->hasMany(Activity::class);
     }
+
+    public function availabilities(): HasMany
+    {
+        return $this->hasMany(Availability::class);
+    }
+
+    public function restrictions(): HasMany
+    {
+        return $this->hasMany(Restriction::class);
+    }
+
 }
