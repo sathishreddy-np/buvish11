@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,7 +27,21 @@ class Availability extends Model
     public static function getForm(): array
     {
         return [
-            Section::make('Pesonal Details')->schema([
+            Section::make()->schema([
+                Select::make('activity_id')
+                    ->relationship('activity', 'name')
+                    ->required(),
+                TextInput::make('day')
+                    ->required()
+                    ->maxLength(255),
+                DateTimePicker::make('starts_at')
+                    ->required(),
+                DateTimePicker::make('ends_at')
+                    ->required(),
+                TextInput::make('availability')
+                    ->required()
+                    ->minValue(0)
+                    ->numeric(),
             ])->columnSpanFull()->columns(2),
         ];
     }
@@ -39,5 +56,4 @@ class Availability extends Model
     {
         return $this->belongsTo(Team::class);
     }
-
 }

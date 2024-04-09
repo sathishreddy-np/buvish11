@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ActivityResource\Pages;
-use App\Filament\Resources\ActivityResource\RelationManagers;
-use App\Models\Activity;
+use App\Filament\Resources\RestrictionResource\Pages;
+use App\Filament\Resources\RestrictionResource\RelationManagers;
+use App\Models\Restriction;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -13,31 +14,41 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ActivityResource extends Resource
+class RestrictionResource extends Resource
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = Restriction::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-puzzle-piece';
+    protected static ?string $navigationIcon = 'heroicon-m-viewfinder-circle';
 
     protected static ?string $navigationGroup = 'Sport';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(Activity::getForm());
+            ->schema(Restriction::getForm());
     }
 
     public static function table(Table $table): Table
     {
         return $table
-        ->persistFiltersInSession()
-        ->persistSearchInSession()
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
             ->columns([
                 Tables\Columns\TextColumn::make('team.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('activity.name')
+                    ->numeric()
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('gender')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('minimum_age')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('maximum_age')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('price')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -56,7 +67,6 @@ class ActivityResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])->tooltip('Actions')
-
             )
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -75,10 +85,10 @@ class ActivityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListActivities::route('/'),
-            'create' => Pages\CreateActivity::route('/create'),
-            'view' => Pages\ViewActivity::route('/{record}'),
-            'edit' => Pages\EditActivity::route('/{record}/edit'),
+            'index' => Pages\ListRestrictions::route('/'),
+            'create' => Pages\CreateRestriction::route('/create'),
+            'view' => Pages\ViewRestriction::route('/{record}'),
+            'edit' => Pages\EditRestriction::route('/{record}/edit'),
         ];
     }
 }

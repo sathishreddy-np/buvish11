@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ActivityResource\Pages;
-use App\Filament\Resources\ActivityResource\RelationManagers;
-use App\Models\Activity;
+use App\Filament\Resources\AvailabilityResource\Pages;
+use App\Filament\Resources\AvailabilityResource\RelationManagers;
+use App\Models\Availability;
+use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -13,31 +14,44 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ActivityResource extends Resource
+class AvailabilityResource extends Resource
 {
-    protected static ?string $model = Activity::class;
+    protected static ?string $model = Availability::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-puzzle-piece';
+    protected static ?string $navigationIcon = 'heroicon-s-rectangle-group';
 
     protected static ?string $navigationGroup = 'Sport';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(Activity::getForm());
+            ->schema(Availability::getForm());
     }
 
     public static function table(Table $table): Table
     {
         return $table
-        ->persistFiltersInSession()
-        ->persistSearchInSession()
+            ->persistFiltersInSession()
+            ->persistSearchInSession()
             ->columns([
                 Tables\Columns\TextColumn::make('team.name')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('activity.name')
+                    ->numeric()
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('day')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('starts_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('ends_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('availability')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -56,7 +70,6 @@ class ActivityResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])->tooltip('Actions')
-
             )
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -75,10 +88,10 @@ class ActivityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListActivities::route('/'),
-            'create' => Pages\CreateActivity::route('/create'),
-            'view' => Pages\ViewActivity::route('/{record}'),
-            'edit' => Pages\EditActivity::route('/{record}/edit'),
+            'index' => Pages\ListAvailabilities::route('/'),
+            'create' => Pages\CreateAvailability::route('/create'),
+            'view' => Pages\ViewAvailability::route('/{record}'),
+            'edit' => Pages\EditAvailability::route('/{record}/edit'),
         ];
     }
 }
