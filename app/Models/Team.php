@@ -202,4 +202,9 @@ class Team extends Model
     {
         return $this->hasMany(Brand::class);
     }
+
+    public function activities(): HasMany
+    {
+        return $this->hasMany(Activity::class);
+    }
 }

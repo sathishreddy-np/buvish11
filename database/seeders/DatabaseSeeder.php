@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Activity;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
 use App\Models\Brand;
@@ -53,6 +54,7 @@ class DatabaseSeeder extends Seeder
                     ->has(Coupon::factory(5))
                     ->has(Tag::factory(5))
                     ->has(Promotion::factory(5))
+                    ->has(Activity::factory(2))
             )
             ->has(Limit::factory())
             ->createQuietly();
