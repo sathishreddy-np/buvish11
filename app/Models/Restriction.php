@@ -32,9 +32,6 @@ class Restriction extends Model
     {
         return [
             Section::make()->schema([
-                Select::make('team_id')
-                    ->relationship('team', 'name')
-                    ->required(),
                 Select::make('activity_id')
                     ->relationship('activity', 'name')
                     ->required(),

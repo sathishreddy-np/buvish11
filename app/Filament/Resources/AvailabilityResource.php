@@ -43,15 +43,6 @@ class AvailabilityResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('day')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('starts_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('ends_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('availability')
-                    ->numeric()
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

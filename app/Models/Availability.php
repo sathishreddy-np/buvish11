@@ -34,14 +34,6 @@ class Availability extends Model
                 TextInput::make('day')
                     ->required()
                     ->maxLength(255),
-                DateTimePicker::make('starts_at')
-                    ->required(),
-                DateTimePicker::make('ends_at')
-                    ->required(),
-                TextInput::make('availability')
-                    ->required()
-                    ->minValue(0)
-                    ->numeric(),
             ])->columnSpanFull()->columns(2),
         ];
     }

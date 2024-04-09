@@ -19,7 +19,7 @@ class TimingResource extends Resource
 {
     protected static ?string $model = Timing::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-s-clock';
 
     protected static ?string $navigationGroup = 'Sport';
 
@@ -38,6 +38,10 @@ class TimingResource extends Resource
                 Tables\Columns\TextColumn::make('team.name')
                     ->numeric()
                     ->sortable(),
+                    Tables\Columns\TextColumn::make('availability.activity.name')
+                    ->searchable()
+                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('availability.day')
                     ->searchable()
                     ->sortable(),
