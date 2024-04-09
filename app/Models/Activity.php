@@ -53,4 +53,9 @@ class Activity extends Model
         return $this->hasMany(Restriction::class);
     }
 
+    public function subscriptionTypes(): HasMany
+    {
+        return $this->hasMany(SubscriptionType::class);
+    }
+
 }

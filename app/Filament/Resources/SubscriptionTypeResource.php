@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AvailabilityResource\Pages;
-use App\Filament\Resources\AvailabilityResource\RelationManagers;
-use App\Models\Availability;
+use App\Filament\Resources\SubscriptionTypeResource\Pages;
+use App\Filament\Resources\SubscriptionTypeResource\RelationManagers;
+use App\Models\SubscriptionType;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,18 +14,18 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AvailabilityResource extends Resource
+class SubscriptionTypeResource extends Resource
 {
-    protected static ?string $model = Availability::class;
+    protected static ?string $model = SubscriptionType::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-rectangle-group';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationGroup = 'Sport';
+    protected static ?string $navigationGroup = 'Subscription';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema(Availability::getForm());
+            ->schema(SubscriptionType::getForm());
     }
 
     public static function table(Table $table): Table
@@ -39,17 +39,12 @@ class AvailabilityResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('activity.name')
                     ->numeric()
-                    ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('day')
+                Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('starts_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('ends_at')
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('availability')
+                Tables\Columns\TextColumn::make('days_allowed')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('no_of_days_valid')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
@@ -70,6 +65,7 @@ class AvailabilityResource extends Resource
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\DeleteAction::make(),
                 ])->tooltip('Actions')
+
             )
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -88,10 +84,10 @@ class AvailabilityResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAvailabilities::route('/'),
-            'create' => Pages\CreateAvailability::route('/create'),
-            'view' => Pages\ViewAvailability::route('/{record}'),
-            'edit' => Pages\EditAvailability::route('/{record}/edit'),
+            'index' => Pages\ListSubscriptionTypes::route('/'),
+            'create' => Pages\CreateSubscriptionType::route('/create'),
+            'view' => Pages\ViewSubscriptionType::route('/{record}'),
+            'edit' => Pages\EditSubscriptionType::route('/{record}/edit'),
         ];
     }
 }

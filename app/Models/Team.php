@@ -218,10 +218,15 @@ class Team extends Model
         return $this->hasMany(Timing::class);
     }
 
-
     public function restrictions(): HasMany
     {
         return $this->hasMany(Restriction::class);
     }
+
+    public function subscriptionTypes(): HasMany
+    {
+        return $this->hasMany(SubscriptionType::class);
+    }
+
 
 }

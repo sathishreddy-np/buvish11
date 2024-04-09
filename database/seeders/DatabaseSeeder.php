@@ -20,6 +20,7 @@ use App\Models\Product;
 use App\Models\Promotion;
 use App\Models\Restriction;
 use App\Models\Role;
+use App\Models\SubscriptionType;
 use App\Models\Tag;
 use App\Models\Team;
 use App\Models\Timing;
@@ -57,7 +58,9 @@ class DatabaseSeeder extends Seeder
                     ->has(Coupon::factory(5))
                     ->has(Tag::factory(5))
                     ->has(Promotion::factory(5))
-                    ->has(Activity::factory(2)->has(Availability::factory(7)->has(Timing::factory(70)))->has(Restriction::factory(3)))
+                    ->has(Activity::factory(2)->has(Availability::factory(7))->has(Restriction::factory(3)))
+                    ->has(Timing::factory(70))
+                    ->has(SubscriptionType::factory(7))
             )
             ->has(Limit::factory())
             ->createQuietly();
