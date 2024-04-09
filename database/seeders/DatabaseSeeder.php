@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Activity;
 use App\Models\Attribute;
 use App\Models\AttributeValue;
+use App\Models\Availability;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Company;
@@ -17,6 +18,7 @@ use App\Models\Payment;
 use App\Models\Permission;
 use App\Models\Product;
 use App\Models\Promotion;
+use App\Models\Restriction;
 use App\Models\Role;
 use App\Models\Tag;
 use App\Models\Team;
@@ -54,7 +56,7 @@ class DatabaseSeeder extends Seeder
                     ->has(Coupon::factory(5))
                     ->has(Tag::factory(5))
                     ->has(Promotion::factory(5))
-                    ->has(Activity::factory(2))
+                    ->has(Activity::factory(2)->has(Availability::factory(70))->has(Restriction::factory(3)))
             )
             ->has(Limit::factory())
             ->createQuietly();

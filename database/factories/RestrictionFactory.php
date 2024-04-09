@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\GenderEnum;
+use App\Models\Activity;
+use App\Models\Team;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,13 @@ class RestrictionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'team_id' => Team::inRandomOrder()->first(),
+            'activity_id' => Activity::inRandomOrder()->first(),
+            'gender' => fake()->randomElement(GenderEnum::class),
+            'minimum_age' => fake()->randomNumber(),
+            'maximum_age' => fake()->randomNumber(),
+            'price' => fake()->randomNumber(),
         ];
+
     }
 }

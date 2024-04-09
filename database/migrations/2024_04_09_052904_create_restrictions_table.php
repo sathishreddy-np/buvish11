@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignIdFor(Activity::class);
             $table->string('gender');
             $table->string('minimum_age');
+            $table->string('maximum_age');
             $table->integer('price');
             $table->timestamps();
         });
